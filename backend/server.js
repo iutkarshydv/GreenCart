@@ -11,6 +11,8 @@ import orderRouter from './routes/orderRoute.js'
 // App Config
 const app = express()
 const port = process.env.PORT || 4000
+
+// Initialize connections
 connectDB()
 connectCloudinary()
 
@@ -28,4 +30,10 @@ app.get('/',(req,res)=>{
     res.send("API Working")
 })
 
-app.listen(port, ()=> console.log('Server started on PORT : '+ port))
+// For local development
+if (process.env.NODE_ENV !== 'production') {
+    app.listen(port, ()=> console.log('Server started on PORT : '+ port))
+}
+
+// Export for Vercel serverless
+export default app
